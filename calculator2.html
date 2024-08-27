@@ -1,0 +1,351 @@
+<!doctype html>
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>
+calculator 2
+</title>
+<style>
+    
+#display{
+background-color:black;
+border-color:white;
+border-radius:5px;
+color:white;
+height:70px;
+text-align:center;
+white-space:pre-wrap;
+word-wrap: break-word;
+
+
+}
+.clr{
+background-color:red;
+}
+.operate{
+background-color:darkgreen;
+}
+.equalto{
+background-color:blue;
+}
+
+#inputs{
+display:flex;
+}
+button{
+margin:1.2em 1.2em 1.2em 1.2em;
+width:100%;
+border-radius:20%;
+color:white;
+background-color:rgba(99, 21, 87, 0.716);
+box-shadow:black;
+box-shadow:4px 4px 4px 4px black;
+text-align:center;
+
+}
+#btns{
+background-color:grey;
+width:100%;
+
+
+}
+container{
+margin: 1em 2em 1em 2em;
+position:relative;
+height:auto;
+}
+
+.naya{
+    width:inherit;
+    
+}
+/*#contain{
+    width:60%;
+    position:relative;
+    left:150px;
+}
+*/
+</style>
+</head>
+<body>
+<div id="container">
+<div id="display">
+</div>
+<div id="btns">
+<div id="inputs">
+<button class="nums" id="one">1</button>
+<button id="two">2</button>
+<button id="three">3</button>
+</div>
+<div id="inputs">
+<button id="four">4</button>
+<button id="five">5</button>
+<button id="six">6</button>
+</div>
+<div id="inputs">
+<button id="seven">7</button>
+<button id="eight">8</button>
+<button id="nine">9</button>
+</div>
+<div id="inputs">
+<button id="zero">0</button>
+<button class="operate" id="addition">+</button>
+<button class="operate" id="subt">-</button>
+</div>
+<div id="inputs">
+<button class="operate" id="multiply">*</button>
+<button class="operate" id="divide">/</button>
+<button class="equalto" id="equalto">=</button>
+</div>
+<div id="inputs">
+<button class="clr" id="allclear">AC</button>
+<button id="decimal">.</button>
+<button class="clr" id="del">dlte</button>
+
+</div>
+</div>
+
+</div>
+
+<script>
+let stage1=[]
+let stage2=[]
+let stage3=[]
+let num1=0;
+let num2=0;
+let op=[];
+let str=""
+let nwline=document.createElement("br")
+let display=document.getElementById("display")
+
+display.innerHTML=str;
+let one=document.getElementById("one")
+one.addEventListener("click",function(){
+str=str+"1"
+display.innerHTML=str
+stage1.push("1")
+})
+let two=document.getElementById("two")
+two.addEventListener("click",function(){
+str=str+"2"
+display.innerHTML=str
+stage1.push("2")
+
+})
+let three=document.getElementById("three")
+three.addEventListener("click",function(){
+str=str+"3"
+display.innerHTML=str
+stage1.push("3")
+})
+let four=document.getElementById("four")
+four.addEventListener("click",function(){
+str=str+"4"
+display.innerHTML=str
+
+stage1.push("4")
+})
+let five=document.getElementById("five")
+five.addEventListener("click",function(){
+str=str+"5"
+display.innerHTML=str
+stage1.push("5")
+
+})
+let six=document.getElementById("six")
+six.addEventListener("click",function(){
+str=str+"6"
+display.innerHTML=str
+stage1.push("6")
+
+})
+let seven=document.getElementById("seven")
+seven.addEventListener("click",function(){
+str=str+"7"
+display.innerHTML=str
+stage1.push("7")
+
+})
+let eight=document.getElementById("eight")
+eight.addEventListener("click",function(){
+str=str+"8"
+display.innerHTML=str
+stage1.push("8")
+
+})
+let nine=document.getElementById("nine")
+nine.addEventListener("click",function(){
+str=str+"9"
+display.innerHTML=str
+stage1.push("9")
+
+})
+let zero=document.getElementById("zero")
+zero.addEventListener("click",function(){
+str=str+"0"
+display.innerHTML=str
+stage1.push("0")
+
+})
+let decimal=document.getElementById("decimal")
+decimal.addEventListener("click",function(){
+str=str+"."
+display.innerHTML=str
+stage1.push(".")
+
+})
+
+let addition=document.getElementById("addition")
+addition.addEventListener("click",function(){
+str=str+"+"
+display.innerHTML=str
+stage2.push(stage1.join(""))
+stage1=[]
+op.push("+")
+})
+let subt=document.getElementById("subt")
+subt.addEventListener("click",function(){
+str=str+"-"
+display.innerHTML=str
+stage2.push(stage1.join(""))
+stage1=[]
+op.push("-")
+//beacuse num1 and num2 was initialized to zero.
+})
+let multiply=document.getElementById("multiply")
+multiply.addEventListener("click",function(){
+str=str+"*"
+display.innerHTML=str
+stage2.push(stage1.join(""))
+stage1=[]
+op.push("*")
+})
+let divide=document.getElementById("divide")
+divide.addEventListener("click",function(){
+str=str+"/"
+display.innerHTML=str
+stage2.push(stage1.join(""))
+stage1=[]
+op.push("/")
+})
+console.log(op)
+//so i get now 1 array for numbers and aniother for operations in both in strings number string array has to be converted to numbers
+
+let del=document.getElementById("del")
+del.addEventListener("click",function(){
+let ops=["+","-","*","/"]
+// below condition is kind of reverse of what i have done is this program when a
+//user clicks a opearation button but reverse,here when a user deletes a opearation button then the //whole process reverses from stage2 to stage1 , i empty stage2 to stage1 with below code  and so that whebn user //again clicks a opearation button program works as it should
+if(ops.indexOf(str.slice(str.length-1))!==-1){
+op.pop()
+//let rev=stage2.join("").split("")
+// issue no-1 i just changed code according to below comment issue i have given so now only the last
+//number in stage2 array is split and sent to stage1 array
+let rev=stage2[stage2.length-1].split("")
+stage2.pop()
+//as i have not removed the last number of stage2 so there should be this number already there
+// i changed that
+console.log(rev)
+for(let i=0;i<rev.length;i++){
+stage1.push(rev[i])
+}
+
+//issue no-1 -update on code looking this after i made this program for around 3 months maybe here
+//this del algorithm does not address some cases like when an expression has more than 
+//1 opeartions then the stage2 array will have more than 1 number so when i use stage2.split 
+//then the program combines both numbers it combines more than 1 number and moves it to stage1
+//array so i need to chnage some code such that on deleting a opeartion only the last number 
+//in the stage2 array should be split and move to stage1 array
+
+}
+else{
+stage1.pop()
+}
+str=str.slice(0,str.length-1)
+display.innerHTML=str
+})
+
+
+let equal=document.getElementById("equalto")
+equal.addEventListener("click",function(){
+stage2.push(stage1.join(""))
+stage1=[]
+let stage3= stage2.map(x=>parseFloat(x,10))
+console.log(stage3)
+let num0=stage3.shift()
+let result=num0
+console.log(result)
+//as initially 2 numbers bring 1 opearation and then for every number there is 1 opeartion
+//i have chopped stage3 and removed first number from stage3 array so that now  number array has same //number of elements as op array
+for(let i=0;i<stage3.length;i++){
+if(op[i]=="+"){
+result=result + stage3[i]
+}
+if(op[i]=="-"){
+result=result - stage3[i]
+}
+if(op[i]=="*"){
+result=result * stage3[i]
+}
+if(op[i]=="/"){
+result=result / stage3[i]
+}
+}
+console.log(result)
+str=result
+console.log(result)
+console.log(str.length)
+display.innerHTML=str
+console.log(str)
+stage1=[]
+stage2=[]
+op=[]
+console.log(stage1)
+let cry=str.toString()
+console.log(cry.length)
+let carryover=cry.split("")
+for(let i=0;i<carryover.length;i++){
+stage1.push(carryover[i])
+}
+console.log(stage1)
+console.log(str)
+str=cry
+display.innerHTML=str
+})
+let allclear=document.getElementById("allclear")
+allclear.addEventListener("click",function(){
+stage1=[]
+stage2=[]
+stage3=[]
+num1=0;
+num2=0;
+op=[];
+str="";
+display.innerHTML=str
+
+})
+
+//code for keyboard movement using swith case and using function defined before, actually got help in this from
+//google gemini ai
+ /* document.addEventListener("keydown", function(event) {
+  const key = event.key; // Get the pressed key
+  switch (key) {
+    case "1":
+      ();
+      break;
+    case "ArrowDown":
+      movedown();
+      break;
+    case "ArrowLeft":
+      moveleft();
+      break;
+    case "ArrowRight":
+      framesright();
+      break;
+  }
+});
+*/
+</script>
+</body>
+</html>
